@@ -1,0 +1,35 @@
+{
+  "task": {
+    "title": "Разность чисел",
+    "number": "1",
+    "score": "5",
+    "testExamples": [
+      {
+        "input": "2 -2\n",
+        "output": "4\n"
+      },
+      {
+        "input": "4 2\n",
+        "output": "2\n"
+      },
+      {
+        "input": "1 1000000000\n",
+        "output": "-999999999\n"
+      }
+    ],
+    "userStatus": {
+      "key": "SOLVED",
+      "label": "Решена"
+    },
+    "condition": "Прежде чем вы приступите к решению задач, используйте эту, чтобы познакомиться с платформой $\\texttt{Techpoint}$, а также получить первые 5 баллов. Считайте из стандартного потока ввода два целых числа и выведите в стандартный поток вывода их разность.",
+    "inputFormat": "stdin",
+    "outputFormat": "stdout",
+    "inputFormatDescription": "Единственная строка входных данных содержит два целых числа $a$ и $b$ \n($-10^9 \\le a, b \\le 10^9$).",
+    "outputFormatDescription": "Выведите значение выражения $a - b$.",
+    "languages": ["GO"],
+    "timeLimit": 1000,
+    "memoryLimit": 256,
+    "testArchiveUrl": "test-examples-taskbook-api/55.zip",
+    "countOfSuccessSolvers": "14"
+  }
+}
