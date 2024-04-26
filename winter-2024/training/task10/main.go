@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"sort"
-	"strconv"
 	"strings"
 )
 
@@ -156,12 +155,4 @@ func buildLevel(sb *strings.Builder, comments CommentsMap, parentID int, level i
 
 	}
 
-}
-
-func str2int(s string) int {
-	res, err := strconv.Atoi(strings.Trim(s, " "))
-	if err != nil {
-		panic(err)
-	}
-	return res
 }

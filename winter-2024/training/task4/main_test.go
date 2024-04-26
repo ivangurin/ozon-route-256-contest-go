@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"io"
 	"os"
-	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -13,21 +13,19 @@ import (
 
 func TestRun(t *testing.T) {
 
-	for i := 0; ; i++ {
+	for i := 1; ; i++ {
 
-		s := strconv.Itoa(i)
-
-		file, err := os.Open("tests/" + s)
+		file, err := os.Open(fmt.Sprintf("tests/%d", i))
 		if err != nil {
 			break
 		}
 		defer file.Close()
 
-		t.Run("Test:"+s, func(t *testing.T) {
+		t.Run(fmt.Sprintf("Test:%d", i), func(t *testing.T) {
 
 			in := bufio.NewReader(file)
 
-			expected, err := os.ReadFile("tests/" + s + ".a")
+			expected, err := os.ReadFile(fmt.Sprintf("tests/%d.a", i))
 			require.Nil(t, err)
 
 			var buffer bytes.Buffer
@@ -37,35 +35,13 @@ func TestRun(t *testing.T) {
 
 			out.Flush()
 
-			reader := bufio.NewReader(&buffer)
-			result, err := readStringAll(reader)
+			result, err := io.ReadAll(bufio.NewReader(&buffer))
 			require.Nil(t, err)
 
-			require.Equal(t, string(expected), result)
+			require.Equal(t, string(expected), string(result))
 
 		})
 
 	}
-
-}
-
-func readStringAll(reader *bufio.Reader) (string, error) {
-
-	res := ""
-
-	for {
-		line, err := reader.ReadString('\n')
-		if err != nil {
-			if err == io.EOF {
-				res = res + line
-				break
-			} else {
-				return "", err
-			}
-		}
-		res = res + line
-	}
-
-	return res, nil
 
 }
