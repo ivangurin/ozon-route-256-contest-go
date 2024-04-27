@@ -12,6 +12,7 @@ import (
 )
 
 func TestRun(t *testing.T) {
+	t.Parallel()
 
 	for i := 1; ; i++ {
 

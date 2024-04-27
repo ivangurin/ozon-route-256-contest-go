@@ -12,7 +12,6 @@ import (
 )
 
 func TestRun(t *testing.T) {
-
 	for i := 1; ; i++ {
 
 		file, err := os.Open(fmt.Sprintf("tests/%d", i))
@@ -43,5 +42,4 @@ func TestRun(t *testing.T) {
 		})
 
 	}
-
 }
