@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -19,11 +20,6 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 	var n, m int
 	fmt.Fscanln(in, &n, &m)
 
-	c := make([]int, m)
-	for i := 0; i < m; i++ {
-		c[i] = i + 1
-	}
-
 	a := make([]int, n)
 	var ai int
 	for i := 0; i < n; i++ {
@@ -32,7 +28,7 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 	}
 	fmt.Fscanln(in)
 
-	res, err := distribute(a, c)
+	res, err := distribute(a, m)
 	if err != nil {
 		fmt.Fprintln(out, "-1")
 		return
@@ -41,18 +37,47 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 	fmt.Fprintf(out, "%s \n", strings.Trim(fmt.Sprint(res), "[]"))
 }
 
-func distribute(friendCards []int, totalCards []int) ([]int, error) {
-	res := make([]int, 0, len(friendCards))
-	for _, friendCard := range friendCards {
+func distribute(friendCards []int, totalCards int) ([]int, error) {
+	if len(friendCards) > totalCards {
+		return nil, fmt.Errorf("no suitable card")
+	}
+
+	type fiend struct {
+		id   int
+		card int
+	}
+
+	friends := make([]fiend, len(friendCards))
+	for id, card := range friendCards {
+		friends[id] = fiend{id, card}
+	}
+
+	sort.Slice(friends, func(i, j int) bool {
+		if friends[i].card < friends[j].card {
+			return true
+		}
+		if friends[i].card == friends[j].card {
+			if friends[i].id < friends[j].id {
+				return true
+			}
+		}
+		return false
+	})
+
+	lastCard := 0
+	res := make([]int, len(friends))
+	for _, friend := range friends {
+
+		if friend.card > lastCard {
+			lastCard = friend.card
+		}
 
 		found := false
-		for i := friendCard; i < len(totalCards); i++ {
-			if totalCards[i] > friendCard {
-				res = append(res, totalCards[i])
-				totalCards[i] = 0
-				found = true
-				break
-			}
+		for nextCard := lastCard + 1; nextCard <= totalCards; nextCard++ {
+			res[friend.id] = nextCard
+			lastCard = nextCard
+			found = true
+			break
 		}
 		if !found {
 			return nil, fmt.Errorf("no suitable card")

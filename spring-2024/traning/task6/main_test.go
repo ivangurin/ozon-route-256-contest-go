@@ -12,9 +12,7 @@ import (
 )
 
 func TestRun(t *testing.T) {
-
-	for i := 10; i < 11; i++ {
-
+	for i := 1; i < 10; i++ {
 		file, err := os.Open(fmt.Sprintf("tests/%d", i))
 		if err != nil {
 			break
@@ -41,7 +39,5 @@ func TestRun(t *testing.T) {
 			require.Equal(t, string(expected), string(result))
 
 		})
-
 	}
-
 }
