@@ -13,7 +13,7 @@ import (
 
 func TestRun(t *testing.T) {
 
-	for i := 1; ; i++ {
+	for i := 1; i < 7; i++ {
 
 		file, err := os.Open(fmt.Sprintf("tests/%d", i))
 		if err != nil {
