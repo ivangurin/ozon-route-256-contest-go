@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 )
 
@@ -15,8 +14,5 @@ func main() {
 }
 
 func Run(in *bufio.Reader, out *bufio.Writer) {
-
-	var n, m int
-	fmt.Fscanln(in, &n, &m)
 
 }

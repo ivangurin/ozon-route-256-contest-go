@@ -7,83 +7,96 @@ import (
 )
 
 func main() {
-
 	in := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
 
 	Run(in, out)
-
 }
 
 func Run(in *bufio.Reader, out *bufio.Writer) {
+	var t int
+	fmt.Fscanln(in, &t)
 
-	var n int
-	fmt.Fscanln(in, &n)
+	for i := 0; i < t; i++ {
 
-	for i := 0; i < n; i++ {
+		var n int
+		fmt.Fscanln(in, &n)
 
-		var m int
-		fmt.Fscanln(in, &m)
+		var events string
+		fmt.Fscanln(in, &events)
 
-		var q string
-		fmt.Fscanln(in, &q)
+		if !isEventsCorrect(events) {
+			fmt.Fprintln(out, "No")
+			continue
+		}
 
-		fmt.Fprintln(out, checkQ(q))
-
+		fmt.Fprintln(out, "Yes")
 	}
-
 }
 
-func checkQ(q string) string {
+func isEventsCorrect(events string) bool {
 
-	x, y, xy, xz, yz, zu, zuy := 0, 0, 0, 0, 0, 0, 0
+	var x, y, xy, xyxz int
+	for i := 0; i < len(events); i++ {
 
-	for i := 0; i < len(q); i++ {
-
-		s := string(q[i])
-
-		switch s {
+		switch string(events[i]) {
 		case "X":
 			x++
 		case "Y":
+
 			if x > 0 {
 				x--
 				xy++
-			} else {
-				y++
+				continue
 			}
+
+			if xyxz > 0 {
+				xyxz--
+				xy++
+				x++
+				continue
+			}
+
+			y++
+
 		case "Z":
+
 			if y > 0 {
 				y--
-				yz++
-			} else if x > 0 {
-				x--
-				xz++
-				zu = xy
-			} else if xy > 0 {
-				xy--
-				yz++
-				x++
-				zuy++
-			} else {
-				return "No"
+				continue
 			}
+
+			if x > 0 {
+				x--
+				if xy > 0 {
+					xyxz++
+					xy--
+				}
+				continue
+			}
+
+			if xy > 0 {
+				xy--
+				x++
+				continue
+			}
+
+			if xyxz > 0 {
+				xyxz--
+				x++
+				continue
+			}
+
+			return false
+
 		}
 
 	}
 
-	// fmt.Printf("No, x: %d, y: %d, xy: %d, xz: %d, yz: %d, zu: %d\n", x, y, xy, xz, yz, zu)
-
-	// if x > 0 && x <= zuy {
-	// 	y = y + x
-	// 	x = 0
-	// }
-
-	if x == 0 && y <= 2*zu && y <= 2*xz {
-		return "Yes"
+	if x == 0 && y == 0 {
+		return true
 	}
 
-	return "No"
-
+	return false
 }
