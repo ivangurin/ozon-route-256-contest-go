@@ -1,4 +1,4 @@
-# Задачи из Ozon Route 256
+# Задачи из контеста Ozon Route 256
 
 ## [Тренировочный раунд(Зима 2024)](./winter-2024/training/)
 
@@ -42,3 +42,17 @@
 7. [Записи ко врачу](./spring-2024/traning/task7/)
 8. [Codenames](./spring-2024/traning/task8/)
 9. [3-правильная очередь](./spring-2024/traning/task9/)
+
+## [Основной раунд(Весна 2024)](./spring-2024/contest/)
+
+### Задачи:
+
+1. [Разность чисел](./spring-2024/contest/task1/)
+2. [ПИН-код](./spring-2024/contest/task2/)
+3. [Вставка символов](./spring-2024/contest/task3/)
+4. [Три банка, три валюты](./spring-2024/contest/task4/)
+5. [JSON prettify](./spring-2024/contest/task5/)
+6. [Упаковка коробок](./spring-2024/contest/task6/)
+7. [Планировщик заказов](./spring-2024/contest/task7/)
+8. [Добыча природных ресурсов](./spring-2024/contest/task8/)
+9. [Пункт выдачи заказов](./spring-2024/contest/task9/)
