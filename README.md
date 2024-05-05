@@ -19,15 +19,15 @@
 
 ### Задачи:
 
-1. [Разность чисел](./winter-2024/contest/task1/)
-2. [Ошибка округления](./winter-2024/contest/task2/)
-3. [Система высокой нагрузки](./winter-2024/contest/task3/)
-4. [ASCII-роботы](./winter-2024/contest/task4/)
-5. [Ваня и вирусный файл](./winter-2024/contest/task5/)
-6. [Хорошие отметки](./winter-2024/contest/task6/)
-7. [Похожие логины](./winter-2024/contest/task7/)
-8. [k-пила](./winter-2024/contest/task8/)
-9. [3-правильная очередь](./winter-2024/contest/task9/)
+1. [Разность чисел](./winter-2024/main/task1/)
+2. [Ошибка округления](./winter-2024/main/task2/)
+3. [Система высокой нагрузки](./winter-2024/main/task3/)
+4. [ASCII-роботы](./winter-2024/main/task4/)
+5. [Ваня и вирусный файл](./winter-2024/main/task5/)
+6. [Хорошие отметки](./winter-2024/main/task6/)
+7. [Похожие логины](./winter-2024/main/task7/)
+8. [k-пила](./winter-2024/main/task8/)
+9. [3-правильная очередь](./winter-2024/main/task9/)
 
 ## [Тренировочный раунд(Весна 2024)](./spring-2024/traning/)
 
@@ -47,12 +47,12 @@
 
 ### Задачи:
 
-1. [Разность чисел](./spring-2024/contest/task1/)
-2. [ПИН-код](./spring-2024/contest/task2/)
-3. [Вставка символов](./spring-2024/contest/task3/)
-4. [Три банка, три валюты](./spring-2024/contest/task4/)
-5. [JSON prettify](./spring-2024/contest/task5/)
-6. [Упаковка коробок](./spring-2024/contest/task6/)
-7. [Планировщик заказов](./spring-2024/contest/task7/)
-8. [Добыча природных ресурсов](./spring-2024/contest/task8/)
-9. [Пункт выдачи заказов](./spring-2024/contest/task9/)
+1. [Разность чисел](./spring-2024/main/task1/)
+2. [ПИН-код](./spring-2024/main/task2/)
+3. [Вставка символов](./spring-2024/main/task3/)
+4. [Три банка, три валюты](./spring-2024/main/task4/)
+5. [JSON prettify](./spring-2024/main/task5/)
+6. [Упаковка коробок](./spring-2024/main/task6/)
+7. [Планировщик заказов](./spring-2024/main/task7/)
+8. [Добыча природных ресурсов](./spring-2024/main/task8/)
+9. [Пункт выдачи заказов](./spring-2024/main/task9/)
