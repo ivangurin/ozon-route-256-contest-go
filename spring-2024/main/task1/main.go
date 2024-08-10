@@ -15,7 +15,7 @@ func main() {
 }
 
 func Run(in *bufio.Reader, out *bufio.Writer) {
-	var n int
-	fmt.Fscanln(in, &n) 
-
+	var a, b int
+	fmt.Fscanln(in, &a, &b)
+	fmt.Fprintln(out, a-b)
 }

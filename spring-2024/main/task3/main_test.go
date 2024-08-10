@@ -14,11 +14,11 @@ import (
 func TestRun(t *testing.T) {
 	t.Parallel()
 
-	for i := 1; ; i++ {
+	for i := 1; i < 32; i++ {
 
 		file, err := os.Open(fmt.Sprintf("tests/%d", i))
 		if err != nil {
-			break
+			continue
 		}
 		defer file.Close()
 
@@ -42,6 +42,6 @@ func TestRun(t *testing.T) {
 			require.Equal(t, string(expected), string(result))
 
 		})
-		
+
 	}
 }

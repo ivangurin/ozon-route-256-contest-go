@@ -42,6 +42,6 @@ func TestRun(t *testing.T) {
 			require.Equal(t, string(expected), string(result))
 
 		})
-		
+
 	}
 }
