@@ -29,19 +29,19 @@
 8. [k-пила](./winter-2024/main/task8/)
 9. [3-правильная очередь](./winter-2024/main/task9/)
 
-## [Тренировочный раунд (Весна 2024)](./spring-2024/traning/)
+## [Тренировочный раунд (Весна 2024)](./spring-2024/training/)
 
 ### Задачи:
 
-1. [Сумматор](./spring-2024/traning/task1/)
-2. [Наклейки](./spring-2024/traning/task2/)
-3. [Оповещения](./spring-2024/traning/task3/)
-4. [Результаты соревнования](./spring-2024/traning/task4/)
-5. [Ваня и вирусный файл](./spring-2024/traning/task5/)
-6. [Карточки](./spring-2024/traning/task6/)
-7. [Записи ко врачу](./spring-2024/traning/task7/)
-8. [Codenames](./spring-2024/traning/task8/)
-9. [3-правильная очередь](./spring-2024/traning/task9/)
+1. [Сумматор](./spring-2024/training/task1/)
+2. [Наклейки](./spring-2024/training/task2/)
+3. [Оповещения](./spring-2024/training/task3/)
+4. [Результаты соревнования](./spring-2024/training/task4/)
+5. [Ваня и вирусный файл](./spring-2024/training/task5/)
+6. [Карточки](./spring-2024/training/task6/)
+7. [Записи ко врачу](./spring-2024/training/task7/)
+8. [Codenames](./spring-2024/training/task8/)
+9. [3-правильная очередь](./spring-2024/training/task9/)
 
 ## [Основной раунд (Весна 2024)](./spring-2024/main/)
 
@@ -57,15 +57,15 @@
 8. [Добыча природных ресурсов](./spring-2024/main/task8/)
 9. [Пункт выдачи заказов](./spring-2024/main/task9/)
 
-## [Тренировочный раунд (Лето 2024)](./summer-2024/traning/)
+## [Тренировочный раунд (Лето 2024)](./summer-2024/training/)
 
 ### Задачи:
 
-1. [О новых форматах заданий](./summer-2024/traning/task1/)
-2. [Ошибка округления](./summer-2024/traning/task2/)
-3. [Корень дерева](./summer-2024/traning/task3/)
-4. [Сломанный сервер](./summer-2024/traning/task4/)
-5. [JSON prettify](./summer-2024/traning/task5/)
-6. [Упаковка коробок](./summer-2024/traning/task6/)
-7. [Похожие логины](./summer-2024/traning/task7/)
-8. [Добыча природных ресурсов](./summer-2024/traning/task8/)
+1. [О новых форматах заданий](./summer-2024/training/task1/)
+2. [Ошибка округления](./summer-2024/training/task2/)
+3. [Корень дерева](./summer-2024/training/task3/)
+4. [Сломанный сервер](./summer-2024/training/task4/)
+5. [JSON prettify](./summer-2024/training/task5/)
+6. [Упаковка коробок](./summer-2024/training/task6/)
+7. [Похожие логины](./summer-2024/training/task7/)
+8. [Добыча природных ресурсов](./summer-2024/training/task8/)
