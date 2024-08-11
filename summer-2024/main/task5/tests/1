@@ -1,0 +1,20 @@
+2
+16
+a: b
+b:
+    c:
+        d: e
+    d: e
+    e: f
+    a:
+        a: hello
+    b:
+        a: hi
+    f: a
+route: contest
+good:
+    luck:
+        for: you
+c: d
+1
+ozon: route

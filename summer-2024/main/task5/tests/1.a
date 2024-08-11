@@ -1,0 +1,27 @@
+a = b
+
+[b.c]
+d = e
+
+[b]
+d = e
+e = f
+
+[b.a]
+a = hello
+
+[b.b]
+a = hi
+
+[b]
+f = a
+
+route = contest
+
+[good.luck]
+for = you
+
+c = d
+
+ozon = route
+

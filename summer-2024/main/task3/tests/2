@@ -1,0 +1,13 @@
+2
+3
+CHANGE prdct1 40
+GET 40 1
+CHANGE prdct0 10
+7
+CHANGE prdct0 40
+GET 40 1
+GET 40 2
+GET 40 1
+CHANGE prdct1 10
+CHANGE prdct1 30
+CHANGE prdct0 30

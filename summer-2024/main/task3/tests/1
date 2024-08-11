@@ -1,0 +1,11 @@
+2
+2
+CHANGE product1 10
+GET 10 1
+6
+CHANGE product1 10
+CHANGE product1 20
+GET 10 1
+GET 10 3
+CHANGE product2 20
+GET 20 5
