@@ -1,12 +1,19 @@
 # Задачи из контеста Ozon Route256
 
+## [Тренировочный раунд (Весна 2025)](./spring-2024/training/)
+
+1. [Вставка символов](./spring-2025/training/task1/)
+2. [Три банка, три валюты](./spring-2025/training/task2/)
+3. [Похожие строки](./spring-2025/training/task3/)
+4. [Крестики-нолики](./spring-2025/training/task4/)
+5. [Content delivery](./spring-2025/training/task5/)
+
 ## [Основной раунд (Зима 2025)](./winter-2025/main/)
 
 1. [Dark room](./winter-2025/main/task1/)
 2. [Валидация](./winter-2025/main/task2/)
 3. [Похожие строки](./winter-2025/main/task3/)
 4. [Коробки. Коробки. Коробки](./winter-2025/main/task4/)
-
 
 ## [Тренировочный раунд (Зима 2025)](./winter-2025/training/)
 
