@@ -1,5 +1,13 @@
 # Задачи из контеста Ozon Route256
 
+## [Тренировочный раунд (Лето 2025)](./summer-2025/training/)
+
+1. [Кто мяукает?!](./summer-2025/training/task1/)
+2. [ASCII-роботы](./summer-2025/training/task2/)
+3. [ASCII-горы](./summer-2025/training/task3/)
+4. [Валидация карты](./summer-2025/training/task4/)
+5. [Оригами](./summer-2025/training/task5/)
+
 ## [Основной раунд (Весна 2025)](./spring-2025/main/)
 
 1. [Кто мяукает?!](./spring-2025/main/task1/)
