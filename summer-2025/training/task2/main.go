@@ -13,17 +13,14 @@ type coord struct {
 }
 
 func main() {
-
 	in := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
 
 	Run(in, out)
-
 }
 
 func Run(in *bufio.Reader, out *bufio.Writer) {
-
 	var n int
 	fmt.Fscanln(in, &n)
 
@@ -80,15 +77,8 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 			goDownRight(matrix, a, "a")
 		}
 
-		// for i := range matrix {
-		// 	fmt.Println(matrix[i])
-		// }
-		// fmt.Println()
-
 		fmt.Fprint(out, matrixToStr(matrix))
-
 	}
-
 }
 
 func goUpLeft(matrix [][]string, pos coord, mark string) {
