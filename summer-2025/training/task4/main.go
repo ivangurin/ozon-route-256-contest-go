@@ -43,7 +43,6 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 		}
 		fmt.Fprintln(out, "NO")
 	}
-
 }
 
 func checkField(field [][]string) bool {
