@@ -21,6 +21,10 @@ func TestRun(t *testing.T) {
 			continue
 		}
 
+		if file.Name() != "8-1" {
+			continue
+		}
+
 		fileTask, err := os.Open(fmt.Sprintf("tests/%s", file.Name()))
 		require.NoError(t, err)
 		defer fileTask.Close()

@@ -7,9 +7,14 @@ import (
 	"strings"
 )
 
-type action struct {
+type Operation struct {
 	p1 int
 	p2 int
+}
+
+type Point struct {
+	x int
+	y int
 }
 
 func main() {
@@ -28,28 +33,220 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 		var n, m, k int
 		fmt.Fscanln(in, &n, &m, &k)
 
-		field := make([][]string, 0, n)
+		paper := make([][]string, 0, n)
 		for j := 0; j < n; j++ {
 			rowStr, _ := in.ReadString('\n')
 			rowStr = strings.Trim(rowStr, "\n")
 			row := strings.Split(rowStr, "")
-			field = append(field, row)
+			paper = append(paper, row)
 		}
 
-		actions := make([]action, 0, k)
+		operations := make([]Operation, 0, k)
 		for j := 0; j < k; j++ {
-			action := action{}
-			fmt.Fscanln(in, &action.p1, &action.p2)
-			actions = append(actions, action)
+			operation := Operation{}
+			fmt.Fscanln(in, &operation.p1, &operation.p2)
+			operations = append(operations, operation)
 		}
 
-		res := MakeIt(field, actions)
+		for _, operation := range operations {
+			paper = FoldIt(paper, operation)
 
-		_ = res
+			for _, row := range paper {
+				fmt.Fprintln(out, strings.Join(row, ""))
+				// fmt.Println(strings.Join(row, ""))
+			}
+			fmt.Fprintln(out)
+			// fmt.Println()
+		}
 	}
 }
 
-func MakeIt(field [][]string, actions []action) [][]string {
+func FoldIt(paper [][]string, operation Operation) [][]string {
+	p1 := GetPoint(paper, operation.p1)
+	p2 := GetPoint(paper, operation.p2)
 
-	return nil
+	if p1.x == p2.x {
+		if operation.p1 > operation.p2 {
+			return FoldLeft(paper, p1.x)
+		} else {
+			return FoldRight(paper, p1.x)
+		}
+	} else if p1.y == p2.y {
+		if operation.p1 == 1 || operation.p1 > operation.p2 {
+			return FoldUp(paper, p1.y)
+		} else {
+			return FoldDown(paper, p1.y)
+		}
+	}
+
+	return paper
+}
+
+func GetPoint(paper [][]string, point int) Point {
+	p := Point{}
+	if point <= len(paper[0])+1 {
+		p.x = point - 1
+		p.y = 0
+	} else if point <= len(paper[0])+len(paper)+1 {
+		p.x = len(paper[0])
+		p.y = point - len(paper[0]) - 1
+	} else if point <= len(paper[0])*2+len(paper)+1 {
+		p.x = len(paper[0])*2 + len(paper) + 1 - point
+		p.y = len(paper)
+	} else {
+		p.x = 0
+		p.y = len(paper[0])*2 + len(paper)*2 + 1 - point
+	}
+
+	return p
+}
+
+func FoldLeft(paper [][]string, x int) [][]string {
+	field := CreateField(paper)
+	// return field
+	line := 10 + x
+	for row := 0; row < 30; row++ {
+		for col := 0; col < 10; col++ {
+			if field[row][line+col] == "-" {
+				continue
+			}
+			if field[row][line-col-1] == "#" {
+				field[row][line+col] = "-"
+				continue
+			}
+
+			field[row][line-col-1] = field[row][line+col]
+			field[row][line+col] = "-"
+
+		}
+	}
+	// return field
+	return ExtractObject(field)
+}
+
+func FoldRight(paper [][]string, x int) [][]string {
+	field := CreateField(paper)
+	// return field
+	line := 10 + x
+	for row := 0; row < 30; row++ {
+		for col := 0; col < 10; col++ {
+			if field[row][line-col-1] == "-" {
+				continue
+			}
+			if field[row][line+col] == "#" {
+				field[row][line-col-1] = "-"
+				continue
+			}
+
+			field[row][line+col] = field[row][line-col-1]
+			field[row][line-col-1] = "-"
+
+		}
+	}
+	// return field
+	return ExtractObject(field)
+}
+
+func FoldUp(paper [][]string, y int) [][]string {
+	field := CreateField(paper)
+	// return field
+	line := 10 + y
+	for col := 0; col < 30; col++ {
+		for row := 0; row < 10; row++ {
+			if field[line+row][col] == "-" {
+				continue
+			}
+			if field[line-row-1][col] == "#" {
+				field[line+row][col] = "-"
+				continue
+			}
+
+			field[line-row-1][col] = field[line+row][col]
+			field[line+row][col] = "-"
+
+		}
+	}
+	// return field
+	return ExtractObject(field)
+}
+
+func FoldDown(paper [][]string, y int) [][]string {
+	field := CreateField(paper)
+	// return field
+	line := 10 + y
+	for col := 0; col < 30; col++ {
+		for row := 0; row < 10; row++ {
+			if field[line-row-1][col] == "-" {
+				continue
+			}
+			if field[line+row][col] == "#" {
+				field[line-row-1][col] = "-"
+				continue
+			}
+
+			field[line+row][col] = field[line-row-1][col]
+			field[line-row-1][col] = "-"
+
+		}
+	}
+	// return field
+	return ExtractObject(field)
+}
+
+func CreateField(paper [][]string) [][]string {
+	field := make([][]string, 30)
+	for i := range field {
+		field[i] = make([]string, 30)
+	}
+	for row := 0; row < 30; row++ {
+		for col := 0; col < 30; col++ {
+			field[row][col] = "-"
+		}
+	}
+	for row := 10; row < 10+len(paper); row++ {
+		for col := 10; col < 10+len(paper[0]); col++ {
+			field[row][col] = paper[row-10][col-10]
+		}
+	}
+	return field
+}
+
+func ExtractObject(field [][]string) [][]string {
+	var minX, maxX, minY, maxY *int
+	for rowID, row := range field {
+		for colID, val := range row {
+			if val != "-" {
+				if minX == nil || colID < *minX {
+					minX = &colID
+				}
+				if maxX == nil || colID > *maxX {
+					maxX = &colID
+				}
+				if minY == nil || rowID < *minY {
+					minY = &rowID
+				}
+				if maxY == nil || rowID > *maxY {
+					maxY = &rowID
+				}
+			}
+		}
+	}
+
+	res := make([][]string, *maxY-*minY+1)
+	for rowID := range res {
+		res[rowID] = make([]string, *maxX-*minX+1)
+		for colID := range res[rowID] {
+			res[rowID][colID] = " "
+		}
+	}
+
+	for rowID := *minY; rowID <= *maxY; rowID++ {
+		for colID := *minX; colID <= *maxX; colID++ {
+			if field[rowID][colID] != "-" {
+				res[rowID-*minY][colID-*minX] = field[rowID][colID]
+			}
+		}
+	}
+
+	return res
 }
