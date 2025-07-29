@@ -61,21 +61,22 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 	}
 }
 
+// Решение на 11 баллов без сгибания по диагонали
 func FoldIt(paper [][]string, operation Operation) [][]string {
 	p1 := GetPoint(paper, operation.p1)
 	p2 := GetPoint(paper, operation.p2)
 
 	if p1.x == p2.x {
-		if operation.p1 > operation.p2 {
+		if p1.y > p2.y {
 			return FoldLeft(paper, p1.x)
 		} else {
 			return FoldRight(paper, p1.x)
 		}
 	} else if p1.y == p2.y {
-		if operation.p1 == 1 || operation.p1 > operation.p2 {
-			return FoldUp(paper, p1.y)
-		} else {
+		if p1.x > p2.x {
 			return FoldDown(paper, p1.y)
+		} else {
+			return FoldUp(paper, p1.y)
 		}
 	}
 
@@ -103,7 +104,7 @@ func GetPoint(paper [][]string, point int) Point {
 
 func FoldLeft(paper [][]string, x int) [][]string {
 	field := CreateField(paper)
-	// return field
+
 	line := 10 + x
 	for row := 0; row < 30; row++ {
 		for col := 0; col < 10; col++ {
@@ -120,13 +121,16 @@ func FoldLeft(paper [][]string, x int) [][]string {
 
 		}
 	}
-	// return field
-	return ExtractObject(field)
+
+	field = CutEmptyBorders(field)
+	field = ExtractObject(field)
+
+	return field
 }
 
 func FoldRight(paper [][]string, x int) [][]string {
 	field := CreateField(paper)
-	// return field
+
 	line := 10 + x
 	for row := 0; row < 30; row++ {
 		for col := 0; col < 10; col++ {
@@ -143,13 +147,16 @@ func FoldRight(paper [][]string, x int) [][]string {
 
 		}
 	}
-	// return field
-	return ExtractObject(field)
+
+	field = CutEmptyBorders(field)
+	field = ExtractObject(field)
+
+	return field
 }
 
 func FoldUp(paper [][]string, y int) [][]string {
 	field := CreateField(paper)
-	// return field
+
 	line := 10 + y
 	for col := 0; col < 30; col++ {
 		for row := 0; row < 10; row++ {
@@ -166,13 +173,16 @@ func FoldUp(paper [][]string, y int) [][]string {
 
 		}
 	}
-	// return field
-	return ExtractObject(field)
+
+	field = CutEmptyBorders(field)
+	field = ExtractObject(field)
+
+	return field
 }
 
 func FoldDown(paper [][]string, y int) [][]string {
 	field := CreateField(paper)
-	// return field
+
 	line := 10 + y
 	for col := 0; col < 30; col++ {
 		for row := 0; row < 10; row++ {
@@ -189,8 +199,11 @@ func FoldDown(paper [][]string, y int) [][]string {
 
 		}
 	}
-	// return field
-	return ExtractObject(field)
+
+	field = CutEmptyBorders(field)
+	field = ExtractObject(field)
+
+	return field
 }
 
 func CreateField(paper [][]string) [][]string {
@@ -208,6 +221,94 @@ func CreateField(paper [][]string) [][]string {
 			field[row][col] = paper[row-10][col-10]
 		}
 	}
+	return field
+}
+
+func CutEmptyBorders(field [][]string) [][]string {
+	for rowID := 0; rowID < len(field); rowID++ {
+		dotsCounter := 0
+		reshCounter := 0
+		for colID := 0; colID < len(field[rowID]); colID++ {
+			if field[rowID][colID] == "." {
+				dotsCounter++
+			}
+			if field[rowID][colID] == "#" {
+				reshCounter++
+			}
+		}
+		if dotsCounter > 0 && reshCounter == 0 {
+			for colID := 0; colID < len(field[rowID]); colID++ {
+				field[rowID][colID] = "-"
+			}
+		}
+		if reshCounter > 0 {
+			break
+		}
+	}
+
+	for rowID := len(field) - 1; rowID >= 0; rowID-- {
+		dotsCounter := 0
+		reshCounter := 0
+		for colID := 0; colID < len(field[rowID]); colID++ {
+			if field[rowID][colID] == "." {
+				dotsCounter++
+			}
+			if field[rowID][colID] == "#" {
+				reshCounter++
+			}
+		}
+		if dotsCounter > 0 && reshCounter == 0 {
+			for colID := 0; colID < len(field[rowID]); colID++ {
+				field[rowID][colID] = "-"
+			}
+		}
+		if reshCounter > 0 {
+			break
+		}
+	}
+
+	for colID := 0; colID < len(field[0]); colID++ {
+		dotsCounter := 0
+		reshCounter := 0
+		for rowID := 0; rowID < len(field); rowID++ {
+			if field[rowID][colID] == "." {
+				dotsCounter++
+			}
+			if field[rowID][colID] == "#" {
+				reshCounter++
+			}
+		}
+		if dotsCounter > 0 && reshCounter == 0 {
+			for rowID := 0; rowID < len(field); rowID++ {
+				field[rowID][colID] = "-"
+			}
+		}
+		if reshCounter > 0 {
+			break
+		}
+	}
+
+	for colID := len(field[0]) - 1; colID >= 0; colID-- {
+		dotsCounter := 0
+		reshCounter := 0
+		for rowID := 0; rowID < len(field); rowID++ {
+			if field[rowID][colID] == "." {
+				dotsCounter++
+			}
+			if field[rowID][colID] == "#" {
+				reshCounter++
+			}
+		}
+		if dotsCounter > 0 && reshCounter == 0 {
+			for rowID := 0; rowID < len(field); rowID++ {
+				field[rowID][colID] = "-"
+			}
+		}
+		if reshCounter > 0 {
+			break
+		}
+	}
+
 	return field
 }
 
