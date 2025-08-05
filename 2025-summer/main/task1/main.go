@@ -22,24 +22,21 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 		var w, h int
 		fmt.Fscanln(in, &w, &h)
 
-		field := make([][]string, 2*h+1)
-		for r := range field {
-			field[r] = make([]string, w+2*h)
-		}
-
-		Draw(field, w, h)
-
-		for _, row := range field {
-			str := ""
-			for _, val := range row {
-				str += val
-			}
-			fmt.Fprintln(out, str)
-		}
+		field := MakeField(w, h)
+		DrawHexagon(field, w, h)
+		OutputField(field, out)
 	}
 }
 
-func Draw(field [][]string, w, h int) {
+func MakeField(w, h int) [][]string {
+	field := make([][]string, 2*h+1)
+	for r := range field {
+		field[r] = make([]string, w+2*h)
+	}
+	return field
+}
+
+func DrawHexagon(field [][]string, w, h int) {
 	for c := 0; c < h; c++ {
 		field[0][c] = " "
 	}
@@ -76,5 +73,15 @@ func Draw(field [][]string, w, h int) {
 
 	for c := h; c < h+w; c++ {
 		field[len(field)-1][c] = "_"
+	}
+}
+
+func OutputField(field [][]string, out *bufio.Writer) {
+	for _, row := range field {
+		str := ""
+		for _, val := range row {
+			str += val
+		}
+		fmt.Fprintln(out, str)
 	}
 }
