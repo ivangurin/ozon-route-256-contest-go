@@ -20,7 +20,7 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 
 	field := MakeField(fw, fh)
 	DrawHexagons(field, hw, hh, t)
-	OutputField(field, out)
+	PrintField(field, out)
 }
 
 func MakeField(w, h int) [][]string {
@@ -117,7 +117,7 @@ func DrawHexagon(field [][]string, r, c, w, h int) {
 	}
 }
 
-func OutputField(field [][]string, out *bufio.Writer) {
+func PrintField(field [][]string, out *bufio.Writer) {
 	for _, row := range field {
 		str := ""
 		for _, val := range row {

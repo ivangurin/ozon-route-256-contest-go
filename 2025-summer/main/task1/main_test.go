@@ -15,6 +15,11 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+var (
+	debug = false
+	test  = ""
+)
+
 func TestRun(t *testing.T) {
 	files, err := os.ReadDir("./tests")
 	require.NoError(t, err)
@@ -77,9 +82,9 @@ func TestRun(t *testing.T) {
 			continue
 		}
 
-		// if file.Name() != "1" {
-		// 	continue
-		// }
+		if test != "" && file.Name() != test {
+			continue
+		}
 
 		fileTask, err := os.Open(fmt.Sprintf("tests/%s", file.Name()))
 		require.NoError(t, err)
@@ -100,6 +105,10 @@ func TestRun(t *testing.T) {
 
 			result, err := io.ReadAll(bufio.NewReader(&buffer))
 			require.NoError(t, err)
+
+			if debug {
+				fmt.Print(string(result))
+			}
 
 			require.Equal(t, string(expected), string(result))
 		})
