@@ -56,15 +56,7 @@ func IsRouteExists(field [][]string, from, to Point) bool {
 		return false
 	}
 
-	from = moveToStart(field, from)
-	to = moveToStart(field, to)
-	if from.row == to.row && from.col == to.col {
-		return true
-	}
-
-	hexWidth, hexHeight := getHexWidthAndHeigh(field)
-
-	allRoads := findRoads(field, hexWidth, hexHeight)
+	allRoads := findRoads(field)
 
 	roads := map[Point]struct{}{}
 	getRoadsFrom(allRoads, from, &roads)
@@ -77,76 +69,30 @@ func IsRouteExists(field [][]string, from, to Point) bool {
 	return false
 }
 
-func getHexWidthAndHeigh(field [][]string) (int, int) {
-	for rowID, row := range field {
-		for colID := range row {
-			if field[rowID][colID] == "/" && field[rowID-1][colID+1] == "_" {
-				width := 0
-				for i := 1; ; i++ {
-					if field[rowID-1][colID+i] == "_" {
-						width++
-						continue
-					}
-					break
-				}
-
-				height := 1
-				for i := 1; ; i++ {
-					if colID-i < 0 {
-						break
-					}
-					if field[rowID+i][colID-i] == "/" {
-						height++
-						continue
-					}
-					break
-				}
-
-				return width, height
-			}
-		}
-	}
-
-	return 0, 0
-}
-
-func findRoads(field [][]string, hexWidth, hexHeight int) map[Point][]Point {
+func findRoads(field [][]string) map[Point][]Point {
 	res := map[Point][]Point{}
 	for rowID, row := range field {
 		for colID := range row {
-			if field[rowID][colID] == "/" && len(field[0])-1 > colID+1 && field[rowID-1][colID+1] == "_" {
-				from := Point{rowID, colID + 1}
-				if !isHexExists(field, hexWidth, hexHeight, from) {
-					continue
-				}
+			if field[rowID][colID] != "~" {
+				from := Point{rowID, colID}
 
-				to := Point{from.row - hexHeight, from.col - hexHeight - hexWidth}
-				if isHexExists(field, hexWidth, hexHeight, to) {
+				to := Point{from.row, from.col - 1}
+				if isEarth(field, to) {
 					res[from] = append(res[from], to)
 				}
 
-				to = Point{from.row + hexHeight, from.col - hexHeight - hexWidth}
-				if isHexExists(field, hexWidth, hexHeight, to) {
+				to = Point{from.row, from.col + 1}
+				if isEarth(field, to) {
 					res[from] = append(res[from], to)
 				}
 
-				to = Point{from.row - hexHeight*2, from.col}
-				if isHexExists(field, hexWidth, hexHeight, to) {
+				to = Point{from.row - 1, from.col}
+				if isEarth(field, to) {
 					res[from] = append(res[from], to)
 				}
 
-				to = Point{from.row + hexHeight*2, from.col}
-				if isHexExists(field, hexWidth, hexHeight, to) {
-					res[from] = append(res[from], to)
-				}
-
-				to = Point{from.row - hexHeight, from.col + hexHeight + hexWidth}
-				if isHexExists(field, hexWidth, hexHeight, to) {
-					res[from] = append(res[from], to)
-				}
-
-				to = Point{from.row + hexHeight, from.col + hexHeight + hexWidth}
-				if isHexExists(field, hexWidth, hexHeight, to) {
+				to = Point{from.row + 1, from.col}
+				if isEarth(field, to) {
 					res[from] = append(res[from], to)
 				}
 			}
@@ -167,65 +113,19 @@ func getRoadsFrom(roads map[Point][]Point, p Point, res *map[Point]struct{}) {
 	}
 }
 
-func isHexExists(field [][]string, hexWidth, hexHeight int, p Point) bool {
+func isEarth(field [][]string, p Point) bool {
 	if p.row < 1 || p.row > len(field)-1 {
 		return false
 	}
 	if p.col < 1 || p.col > len(field[0])-1 {
 		return false
 	}
-	if p.row+2*hexHeight-1 > len(field)-1 {
-		return false
-	}
-	if p.col+hexWidth > len(field[0])-1 {
-		return false
-	}
 
-	if field[p.row][p.col-1] == "/" && field[p.row-1][p.col] == "_" &&
-		field[p.row+2*hexHeight-1][p.col-1] == "\\" && field[p.row+2*hexHeight-1][p.col] == "_" &&
-		field[p.row][p.col+hexWidth] == "\\" && field[p.row-1][p.col+hexWidth-1] == "_" &&
-		field[p.row+2*hexHeight-1][p.col+hexWidth] == "/" && field[p.row+2*hexHeight-1][p.col+hexWidth-1] == "_" {
+	if field[p.row][p.col] != "~" {
 		return true
 	}
 
 	return false
-}
-
-func moveToStart(field [][]string, p Point) Point {
-	if field[p.row][p.col] == " " ||
-		(p.col < len(field[0])-1 && field[p.row][p.col] == "\\" && field[p.row][p.col+1] == "~") ||
-		(p.col < len(field[0])-1 && field[p.row][p.col] == "/" && field[p.row][p.col+1] == "~") {
-		for {
-			p.col--
-			if field[p.row][p.col] != " " {
-				break
-			}
-		}
-	}
-
-	if field[p.row][p.col] == "\\" {
-		for {
-			if field[p.row-1][p.col] == "/" {
-				p.row--
-				break
-			}
-			p.row--
-			p.col--
-		}
-	}
-
-	if field[p.row][p.col] == "/" {
-		for {
-			if field[p.row-1][p.col+1] == "_" {
-				p.col++
-				break
-			}
-			p.row--
-			p.col++
-		}
-	}
-
-	return p
 }
 
 func markSea(field [][]string) {
