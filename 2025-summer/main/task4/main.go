@@ -77,22 +77,22 @@ func findRoads(field [][]string) map[Point][]Point {
 				from := Point{rowID, colID}
 
 				to := Point{from.row, from.col - 1}
-				if isEarth(field, to) {
+				if isLand(field, to) {
 					res[from] = append(res[from], to)
 				}
 
 				to = Point{from.row, from.col + 1}
-				if isEarth(field, to) {
+				if isLand(field, to) {
 					res[from] = append(res[from], to)
 				}
 
 				to = Point{from.row - 1, from.col}
-				if isEarth(field, to) {
+				if isLand(field, to) {
 					res[from] = append(res[from], to)
 				}
 
 				to = Point{from.row + 1, from.col}
-				if isEarth(field, to) {
+				if isLand(field, to) {
 					res[from] = append(res[from], to)
 				}
 			}
@@ -113,7 +113,7 @@ func getRoadsFrom(roads map[Point][]Point, p Point, res *map[Point]struct{}) {
 	}
 }
 
-func isEarth(field [][]string, p Point) bool {
+func isLand(field [][]string, p Point) bool {
 	if p.row < 1 || p.row > len(field)-1 {
 		return false
 	}
