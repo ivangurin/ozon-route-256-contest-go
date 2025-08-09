@@ -41,10 +41,6 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 		field := readField(in, n, m)
 		markSea(field)
 
-		// for _, row := range field {
-		// 	fmt.Println(strings.Join(row, ""))
-		// }
-
 		from := Point{}
 		fmt.Fscanln(in, &from.Row, &from.Col)
 
@@ -73,9 +69,9 @@ func countTransitions(field [][]string, from, to Point) int {
 
 		currentData := points[current]
 
-		// if current.Row == to.Row && current.Col == to.Col {
-		// 	return currentData.Cost
-		// }
+		if current.Row == to.Row && current.Col == to.Col {
+			return currentData.Cost
+		}
 
 		for _, next := range currentData.Next {
 			nextData := points[next.Point]
@@ -137,6 +133,40 @@ func getPoints(field [][]string) map[Point]*PointData {
 					Point: to,
 					Cost:  calcCost(field, from, to),
 				})
+			}
+
+			if field[from.Row][from.Col] == "~" {
+				to = Point{from.Row - 1, from.Col - 1}
+				if isCellCorrect(field, to) && field[to.Row][to.Col] == "~" {
+					data.Next = append(data.Next, Next{
+						Point: to,
+						Cost:  calcCost(field, from, to),
+					})
+				}
+
+				to = Point{from.Row + 1, from.Col - 1}
+				if isCellCorrect(field, to) && field[to.Row][to.Col] == "~" {
+					data.Next = append(data.Next, Next{
+						Point: to,
+						Cost:  calcCost(field, from, to),
+					})
+				}
+
+				to = Point{from.Row - 1, from.Col + 1}
+				if isCellCorrect(field, to) && field[to.Row][to.Col] == "~" {
+					data.Next = append(data.Next, Next{
+						Point: to,
+						Cost:  calcCost(field, from, to),
+					})
+				}
+
+				to = Point{from.Row + 1, from.Col + 1}
+				if isCellCorrect(field, to) && field[to.Row][to.Col] == "~" {
+					data.Next = append(data.Next, Next{
+						Point: to,
+						Cost:  calcCost(field, from, to),
+					})
+				}
 			}
 		}
 	}
