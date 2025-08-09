@@ -41,9 +41,9 @@ func Run(in *bufio.Reader, out *bufio.Writer) {
 		field := readField(in, n, m)
 		markSea(field)
 
-		for _, row := range field {
-			fmt.Println(strings.Join(row, ""))
-		}
+		// for _, row := range field {
+		// 	fmt.Println(strings.Join(row, ""))
+		// }
 
 		from := Point{}
 		fmt.Fscanln(in, &from.Row, &from.Col)
@@ -106,12 +106,12 @@ func getPoints(field [][]string) map[Point]*PointData {
 				Cost: 999,
 			}
 			res[from] = data
-			
+
 			to := Point{from.Row, from.Col - 1}
 			if isCellCorrect(field, to) {
 				data.Next = append(data.Next, Next{
 					Point: to,
-					Cost:  calCost(field, from, to),
+					Cost:  calcCost(field, from, to),
 				})
 			}
 
@@ -119,16 +119,15 @@ func getPoints(field [][]string) map[Point]*PointData {
 			if isCellCorrect(field, to) {
 				data.Next = append(data.Next, Next{
 					Point: to,
-					Cost:  calCost(field, from, to),
+					Cost:  calcCost(field, from, to),
 				})
 			}
-			
 
 			to = Point{from.Row - 1, from.Col}
 			if isCellCorrect(field, to) {
 				data.Next = append(data.Next, Next{
 					Point: to,
-					Cost:  calCost(field, from, to),
+					Cost:  calcCost(field, from, to),
 				})
 			}
 
@@ -136,7 +135,7 @@ func getPoints(field [][]string) map[Point]*PointData {
 			if isCellCorrect(field, to) {
 				data.Next = append(data.Next, Next{
 					Point: to,
-					Cost:  calCost(field, from, to),
+					Cost:  calcCost(field, from, to),
 				})
 			}
 		}
@@ -145,7 +144,7 @@ func getPoints(field [][]string) map[Point]*PointData {
 	return res
 }
 
-func calCost(field [][]string, from, to Point) int {
+func calcCost(field [][]string, from, to Point) int {
 	if field[from.Row][from.Col] != "~" && field[to.Row][to.Col] == "~" ||
 		field[from.Row][from.Col] == "~" && field[to.Row][to.Col] != "~" {
 		return 1
